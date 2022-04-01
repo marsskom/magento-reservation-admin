@@ -1,0 +1,24 @@
+{
+    "name": "marsskom/reservation-admin",
+    "description": "Magento 2 module that helps reservation analysis.",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "version": "1.0.0",
+    "require": {
+        "php": "~7.4.0",
+        "magento/module-inventory-reservations": "1.2.0-p1"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Marsskom\\ReservationAdmin\\": ""
+        }
+    }
+}
