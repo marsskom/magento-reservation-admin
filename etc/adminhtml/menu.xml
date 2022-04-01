@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Marsskom_ReservationAdmin::marsskom_reservation"
+             parent="Magento_Catalog::catalog"
+             translate="title"
+             title="Reservation"
+             module="Marsskom_ReservationAdmin"
+             sortOrder="50"
+             dependsOnModule="Marsskom_ReservationAdmin"
+             resource="Marsskom_ReservationAdmin::marsskom_reservation"/>
+
+        <add id="Marsskom_ReservationAdmin::marsskom_reservation_products"
+             parent="Marsskom_ReservationAdmin::marsskom_reservation"
+             translate="title"
+             title="Products"
+             module="Marsskom_ReservationAdmin"
+             sortOrder="10"
+             dependsOnModule="Marsskom_ReservationAdmin"
+             resource="Marsskom_ReservationAdmin::marsskom_reservation_products"
+             action="reservation/product/"/>
+    </menu>
+</config>
