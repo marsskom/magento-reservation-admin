@@ -1,5 +1,5 @@
 {
-    "name": "marsskom/reservation-admin",
+    "name": "marsskom/magento-reservation-admin",
     "description": "Magento 2 module that helps reservation analysis.",
     "type": "magento2-module",
     "license": [
