@@ -5,13 +5,22 @@
     "license": [
         "OSL-3.0"
     ],
+    "authors": [
+        {
+            "name": "Andrii Prakapas",
+            "email": "marsskom@gmail.com",
+            "homepage": "https://github.com/marsskom",
+            "role": "PHP Developer"
+        }
+    ],
     "config": {
         "sort-packages": true
     },
     "version": "1.0.0",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": "~7.4.0",
-        "magento/module-inventory-reservations": "1.2.0-p1"
+        "php": "~7.4.0"
     },
     "autoload": {
         "files": [
@@ -20,5 +29,9 @@
         "psr-4": {
             "Marsskom\\ReservationAdmin\\": ""
         }
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "*",
+        "squizlabs/php_codesniffer": "~3.5.4"
     }
 }

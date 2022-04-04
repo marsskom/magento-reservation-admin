@@ -6,6 +6,11 @@ It helps to find and manipulate the product's reservations.
 
 - [About Magento 2 Template](./docs/magento.md)
 - [Inventory Reservation](./docs/inventory.md)
+- [PHPCS](./docs/phpcs.md)
+
+## Magento 2 version
+
+### 2.4.3-p1
 
 ## Reservation
 
