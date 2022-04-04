@@ -2,6 +2,11 @@
 
 It helps to find and manipulate the product's reservations.
 
+## Additional Links
+
+- [About Magento 2 Template](./docs/magento.md)
+- [Inventory Reservation](./docs/inventory.md)
+
 ## Reservation
 
 You can find product reservation data in the menu: **Catalog > Reservation > Products**
