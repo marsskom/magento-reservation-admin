@@ -20,8 +20,8 @@
         <dataProvider class="Marsskom\ReservationAdmin\Ui\DataProvider\Product\ReservationDataProvider"
                       name="reservation_product_grid_data_source">
             <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>reservation_id</requestFieldName>
+                <primaryFieldName>reservation_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -95,6 +95,20 @@
                 </argument>
             </filterInput>
         </filters>
+        <massaction name="grid_massaction"
+                    component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="reservation/product/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
         <paging name="grid_paging">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -135,30 +149,18 @@
         </paging>
     </container>
     <columns name="reservation_product_grid_columns">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="storageConfig" xsi:type="array">
-                    <item name="provider" xsi:type="string">reservation_product_grid.reservation_product_grid.grid_top.bookmarks</item>
-                    <item name="namespace" xsi:type="string">current</item>
-                </item>
-                <item name="childDefaults" xsi:type="array">
-                    <item name="fieldAction" xsi:type="array">
-                        <item name="provider" xsi:type="string">reservation_product_grid.reservation_product_grid.reservation_product_grid_columns.actions</item>
-                        <item name="target" xsi:type="string">applyAction</item>
-                        <item name="params" xsi:type="array">
-                            <item name="0" xsi:type="string">edit</item>
-                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
-                        </item>
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">reservation_product_grid.reservation_product_grid.reservation_product_grid_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">edit</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
                     </item>
-                    <item name="controlVisibility" xsi:type="boolean">true</item>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">reservation_product_grid.reservation_product_grid.grid_top.bookmarks</item>
-                        <item name="root" xsi:type="string">columns.${ $.index }</item>
-                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root }</item>
-                    </item>
-                </item>
-            </item>
-        </argument>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids" sortOrder="0">
             <settings>
                 <label translate="true">Rows</label>
@@ -200,5 +202,11 @@
                 <sortable>false</sortable>
             </settings>
         </column>
+
+        <actionsColumn name="actions" class="Marsskom\ReservationAdmin\Ui\Component\Listing\Columns\ProductActions" sortOrder="200">
+            <settings>
+                <indexField>reservation_id</indexField>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>

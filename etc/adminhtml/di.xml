@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Marsskom\ReservationAdmin\Api\Product\ReservationRepositoryInterface"
+                type="Marsskom\ReservationAdmin\Model\Product\ReservationRepository"/>
+    <preference for="Marsskom\ReservationAdmin\Api\Data\Product\ReservationSearchResultInterface"
+                type="Marsskom\ReservationAdmin\Model\Product\ReservationSearchResult"/>
     <preference for="Marsskom\ReservationAdmin\Api\Data\Product\ReservationInterface"
                 type="Marsskom\ReservationAdmin\Model\Product\Reservation"/>
+    <preference for="Marsskom\ReservationAdmin\Api\Data\Product\MassAction\MassResultInterface"
+                type="Marsskom\ReservationAdmin\Model\Adminhtml\Product\MassAction\MassResult"/>
 
     <virtualType name="ReservationProductGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
         <arguments>
