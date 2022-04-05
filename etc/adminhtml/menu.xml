@@ -3,11 +3,11 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Marsskom_ReservationAdmin::marsskom_reservation"
-             parent="Magento_Catalog::catalog"
+             parent="Magento_Backend::stores"
              translate="title"
              title="Reservation"
              module="Marsskom_ReservationAdmin"
-             sortOrder="50"
+             sortOrder="17"
              dependsOnModule="Marsskom_ReservationAdmin"
              resource="Marsskom_ReservationAdmin::marsskom_reservation"/>
 
