@@ -86,3 +86,11 @@ Therefore, you can find easily what you want:
 Also, you can combine filters:
 
 ![Filtered By Order And Sku](./docs/images/filtered_by_order_and_sku.png)
+
+If you need information by pairs positive-negative, you should filter by "Metadata" and click on "Metadata" column for sort by pairs:
+
+![Filtered And Sorted By Pairs](./docs/images/filtered_and_sort_by_order.png)
+
+Button "Show pretty/raw" changes the JSON metadata view:
+
+![Show Pretty/Raw button](./docs/images/show_pretty_raw.png)
