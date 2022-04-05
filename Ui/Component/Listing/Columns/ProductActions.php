@@ -49,21 +49,33 @@ class ProductActions extends Column
         }
 
         foreach ($dataSource['data']['items'] as &$item) {
-            $item[$this->getData('name')]['delete'] = [
-                'href'    => $this->urlBuilder->getUrl(
-                    'reservation/product/delete',
-                    ['id' => $item['reservation_id']]
-                ),
-                'confirm' => [
-                    'title'   => __('Delete #%1', $item['reservation_id']),
-                    'message' => __('Are you sure you want to delete a #%1 record?', $item['reservation_id']),
-                ],
-                'label'   => __('Delete'),
-                'hidden'  => false,
-                'post'    => true,
-            ];
+            $item[$this->getData('name')]['delete'] = $this->getDeleteButtonData($item);
         }
 
         return $dataSource;
+    }
+
+    /**
+     * Returns delete button data.
+     *
+     * @param array $item
+     *
+     * @return array
+     */
+    protected function getDeleteButtonData(array $item): array
+    {
+        return [
+            'href'    => $this->urlBuilder->getUrl(
+                'reservation/product/delete',
+                ['id' => $item['reservation_id']]
+            ),
+            'confirm' => [
+                'title'   => __('Delete #%1', $item['reservation_id']),
+                'message' => __('Are you sure you want to delete a #%1 record?', $item['reservation_id']),
+            ],
+            'label'   => __('Delete'),
+            'hidden'  => false,
+            'post'    => true,
+        ];
     }
 }
