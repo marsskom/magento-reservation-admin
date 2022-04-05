@@ -7,9 +7,16 @@
                     <resource id="Marsskom_ReservationAdmin::marsskom_reservation"
                               title="Catalog Reservation"
                               sortOrder="50">
+
                         <resource id="Marsskom_ReservationAdmin::marsskom_reservation_products"
                                   title="Product Reservation"
                                   sortOrder="10"/>
+
+                        <resource id="Marsskom_ReservationAdmin::reservation_delete"
+                                  title="Delete Reservation"
+                                  translate="title"
+                                  sortOrder="20" />
+
                     </resource>
                 </resource>
             </resource>
