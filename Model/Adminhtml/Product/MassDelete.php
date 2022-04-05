@@ -48,12 +48,14 @@ class MassDelete implements MassActionInterface
         foreach ($abstractDb->getItems() as $item) {
             try {
                 $this->reservRepo->deleteById(
-                    $item->getData('reservation_id')
+                    (int) $item->getData('reservation_id')
                 );
+                
                 ++$deleted;
             } catch (LocalizedException $exception) {
-                ++$errored;
                 $this->logger->error($exception->getMessage(), $exception->getTrace());
+                
+                ++$errored;
             }
         }
 

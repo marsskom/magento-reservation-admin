@@ -95,7 +95,7 @@
                 </argument>
             </filterInput>
         </filters>
-        <massaction name="grid_massaction"
+        <massaction name="listing_massaction"
                     component="Magento_Ui/js/grid/tree-massactions">
             <action name="delete">
                 <settings>

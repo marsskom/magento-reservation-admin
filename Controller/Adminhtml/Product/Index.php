@@ -12,6 +12,13 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action implements HttpGetActionInterface
 {
+    /**
+     * Authorization level of a basic admin session.
+     *
+     * @see _isAllowed()
+     */
+    const ADMIN_RESOURCE = 'Marsskom_ReservationAdmin::marsskom_reservation_products';
+
     protected PageFactory $resultPageFactory;
 
     /**

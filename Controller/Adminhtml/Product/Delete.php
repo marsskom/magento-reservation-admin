@@ -57,7 +57,7 @@ class Delete extends Action implements HttpPostActionInterface
      */
     public function execute()
     {
-        $reservationId = $this->getRequest()->getParam('id');
+        $reservationId = (int) $this->getRequest()->getParam('id');
 
         try {
             $event = $this->eventsFactory->create(Events::BEFORE_DELETE, $reservationId, true);
