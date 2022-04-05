@@ -55,7 +55,7 @@
                 </item>
             </argument>
         </container>
-        <filterSearch name="fulltext">
+        <filterSearch name="sku">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/search/search</item>
@@ -86,14 +86,6 @@
                     </item>
                 </item>
             </argument>
-            <filterInput name="sku">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="dataScope" xsi:type="string">sku</item>
-                        <item name="label" xsi:type="string" translate="true">Sku</item>
-                    </item>
-                </argument>
-            </filterInput>
         </filters>
         <massaction name="listing_massaction"
                     component="Magento_Ui/js/grid/tree-massactions">
@@ -175,7 +167,9 @@
                 <sorting>desc</sorting>
             </settings>
         </column>
-        <column name="stock_id" sortOrder="20" component="Magento_Ui/js/grid/columns/select">
+        <column name="stock_id"
+                component="Magento_Ui/js/grid/columns/select"
+                sortOrder="20">
             <settings>
                 <options class="Marsskom\ReservationAdmin\Model\Adminhtml\Product\Config\Source\Stock"/>
                 <filter>select</filter>
@@ -184,26 +178,43 @@
             </settings>
         </column>
         <column name="sku" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
             <settings>
                 <filter>text</filter>
                 <label translate="true">Sku</label>
             </settings>
         </column>
-        <column name="quantity" sortOrder="40">
+        <column name="quantity"
+                component="Marsskom_ReservationAdmin/js/grid/product/columns/quantity"
+                sortOrder="40">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Quantity</label>
             </settings>
         </column>
-        <column name="metadata" sortOrder="50">
+        <column name="metadata"
+                component="Marsskom_ReservationAdmin/js/grid/product/columns/metadata"
+                sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description"
+                          xsi:type="string"
+                          translate="true">(click for sorting by pairs, after you filter by metadata)</item>
+                </item>
+            </argument>
             <settings>
                 <filter>text</filter>
                 <label translate="true">Metadata</label>
-                <sortable>false</sortable>
             </settings>
         </column>
 
-        <actionsColumn name="actions" class="Marsskom\ReservationAdmin\Ui\Component\Listing\Columns\ProductActions" sortOrder="200">
+        <actionsColumn name="actions"
+                       class="Marsskom\ReservationAdmin\Ui\Component\Grid\Columns\ProductActions"
+                       sortOrder="200">
             <settings>
                 <indexField>reservation_id</indexField>
             </settings>

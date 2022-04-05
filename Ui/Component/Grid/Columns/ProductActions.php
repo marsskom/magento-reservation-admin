@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Marsskom\ReservationAdmin\Ui\Component\Listing\Columns;
+namespace Marsskom\ReservationAdmin\Ui\Component\Grid\Columns;
 
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -42,7 +42,7 @@ class ProductActions extends Column
     /**
      * @inheridoc
      */
-    public function prepareDataSource(array $dataSource)
+    public function prepareDataSource(array $dataSource): array
     {
         if (!isset($dataSource['data']['items'])) {
             return $dataSource;
@@ -51,6 +51,7 @@ class ProductActions extends Column
         foreach ($dataSource['data']['items'] as &$item) {
             $item[$this->getData('name')]['delete'] = $this->getDeleteButtonData($item);
         }
+        unset($item);
 
         return $dataSource;
     }

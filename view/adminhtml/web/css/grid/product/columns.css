@@ -1,0 +1,78 @@
+.data-grid-cell-content--description {
+    font-size: 0.8em;
+}
+
+.qty-column-default {
+    background: #E5F7FE none repeat scroll 0 0;
+    border: 1px solid #006bb4;
+    color: #006bb4;
+    display: block;
+    font-weight: bold;
+    line-height: 17px;
+    padding: 0 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.qty-column-green {
+    background: #d0e5a9 none repeat scroll 0 0;
+    border: 1px solid #5b8116;
+    color: #185b00;
+    display: block;
+    font-weight: bold;
+    line-height: 17px;
+    padding: 0 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.qty-column-red {
+    background: #f9d4d4 none repeat scroll 0 0;
+    border: 1px solid #e22626;
+    color: #e22626;
+    display: block;
+    font-weight: bold;
+    line-height: 17px;
+    padding: 0 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.metadata-column a {
+    color: #f0780e;
+}
+
+.raw-container {
+    margin-top: 10px;
+}
+
+.pretty-container {
+    display: none;
+    margin-top: 10px;
+}
+
+.metadata-pre {
+    outline: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+}
+
+.metadata-pre .string {
+    color: #008000;
+}
+
+.metadata-pre .number {
+    color: #0000ff;
+}
+
+.metadata-pre .boolean {
+    color: #b22222;
+}
+
+.metadata-pre .null {
+    color: #808080;
+}
+
+.metadata-pre .key {
+    color: #000000;
+}
