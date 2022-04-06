@@ -9,11 +9,9 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
+use Marsskom\ReservationAdmin\Api\Data\Product\EventInterface;
 use Marsskom\ReservationAdmin\Api\Product\ReservationRepositoryInterface;
-use Marsskom\ReservationAdmin\Model\Adminhtml\Product\Events;
-use Marsskom\ReservationAdmin\Model\Adminhtml\Product\EventsFactory;
-use Marsskom\ReservationAdmin\Model\Adminhtml\Product\MassDeleteFactory;
-use Marsskom\ReservationAdmin\Model\ResourceModel\Product\CollectionFactory;
+use Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Factory\Delete\EventFactory;
 use Psr\Log\LoggerInterface;
 
 class Delete extends Action implements HttpPostActionInterface
@@ -29,7 +27,7 @@ class Delete extends Action implements HttpPostActionInterface
 
     protected ReservationRepositoryInterface $reservRepo;
 
-    protected EventsFactory $eventsFactory;
+    protected EventFactory $eventsFactory;
 
     /**
      * Mass delete constructor.
@@ -37,13 +35,13 @@ class Delete extends Action implements HttpPostActionInterface
      * @param Context                        $context
      * @param LoggerInterface                $logger
      * @param ReservationRepositoryInterface $reservRepo
-     * @param EventsFactory                  $eventsFactory
+     * @param EventFactory                   $eventsFactory
      */
     public function __construct(
         Context $context,
         LoggerInterface $logger,
         ReservationRepositoryInterface $reservRepo,
-        EventsFactory $eventsFactory
+        EventFactory $eventsFactory
     ) {
         parent::__construct($context);
 
@@ -60,26 +58,37 @@ class Delete extends Action implements HttpPostActionInterface
         $reservationId = (int) $this->getRequest()->getParam('id');
 
         try {
-            $event = $this->eventsFactory->create(Events::BEFORE_DELETE, $reservationId, true);
-            $this->_eventManager->dispatch($event->getName(), $event->toArray());
+            $this->dispatchEvent($this->eventsFactory->before($reservationId));
 
             $this->reservRepo->deleteById($reservationId);
 
-            $event = $this->eventsFactory->create(Events::AFTER_DELETE, $reservationId, true);
-            $this->_eventManager->dispatch($event->getName(), $event->toArray());
+            $this->dispatchEvent($this->eventsFactory->after($reservationId, true));
 
             $this->messageManager->addSuccessMessage(__('The reservation has been deleted.'));
         } catch (LocalizedException $exception) {
             $this->logger->error($exception->getMessage(), $exception->getTrace());
-
-            $event = $this->eventsFactory->create(Events::AFTER_DELETE, $reservationId, false);
-            $this->_eventManager->dispatch($event->getName(), $event->toArray());
-
             $this->messageManager->addErrorMessage(__("We can't delete reservation."));
+
+            $this->dispatchEvent($this->eventsFactory->after($reservationId, false));
         }
 
         return $this->resultFactory
             ->create(ResultFactory::TYPE_REDIRECT)
             ->setPath('*/*/');
+    }
+
+    /**
+     * Dispatches event.
+     *
+     * @param EventInterface $event
+     *
+     * @return void
+     */
+    protected function dispatchEvent(EventInterface $event): void
+    {
+        $this->_eventManager->dispatch(
+            $event->getName(),
+            $event->toArray()
+        );
     }
 }
