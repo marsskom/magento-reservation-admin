@@ -14,7 +14,7 @@ It helps to find and manipulate the product's reservations.
 
 ## Reservation
 
-You can find product reservation data in the menu: **Catalog > Reservation > Products**
+You can find product reservation data in the menu: **Stores > Reservation > Products**
 
 ![Path In Menu](./docs/images/path_in_menu.png)
 
