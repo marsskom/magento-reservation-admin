@@ -2,16 +2,18 @@
 
 declare(strict_types = 1);
 
-namespace Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event;
+namespace Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Payload\Delete;
 
-class Payload
+use Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\AfterPayloadInterface;
+
+class After implements AfterPayloadInterface
 {
     private int $reservationId;
 
     private bool $status;
 
     /**
-     * Payload constructor.
+     * After payload constructor.
      *
      * @param int  $reservationId
      * @param bool $status
@@ -25,19 +27,15 @@ class Payload
     }
 
     /**
-     * Returns reservation id.
-     *
-     * @return int
+     * @inheritdoc
      */
-    public function getId(): int
+    public function getReservationId(): int
     {
         return $this->reservationId;
     }
 
     /**
-     * Returns event status.
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function getStatus(): bool
     {

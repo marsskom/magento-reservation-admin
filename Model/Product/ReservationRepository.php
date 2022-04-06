@@ -60,7 +60,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      *
      * @throws CouldNotSaveException
      */
@@ -78,7 +78,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      *
      * @throws NoSuchEntityException
      */
@@ -103,7 +103,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      *
      * @throws StateException
      */
@@ -127,7 +127,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      *
      * @throws NoSuchEntityException
      * @throws StateException
@@ -140,7 +140,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getList(SearchCriteriaInterface $searchCriteria): ReservationSearchResultInterface
     {

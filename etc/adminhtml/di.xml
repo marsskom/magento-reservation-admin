@@ -22,4 +22,50 @@
                       xsi:type="object">Marsskom\ReservationAdmin\Ui\DataProvider\Product\Grid\Modifier\Pool</argument>
         </arguments>
     </type>
+
+    <!--  Delete Action: Payloads  -->
+    <preference for="Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\BeforePayloadInterface"
+                type="Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Payload\Delete\Before"/>
+    <preference for="Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\AfterPayloadInterface"
+                type="Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Payload\Delete\After"/>
+
+    <!--  Delete Action: Sets payload to the event that it is related to  -->
+    <virtualType name="DeleteControllerManager"
+                 type="Marsskom\ReservationAdmin\Model\EventManager">
+        <arguments>
+            <argument name="events" xsi:type="array">
+                <item name="adminhtml_reservation_product_before_delete"
+                      xsi:type="object">Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\BeforePayloadInterfaceFactory</item>
+                <item name="adminhtml_reservation_product_after_delete"
+                      xsi:type="object">Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\AfterPayloadInterfaceFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--  Delete Action: Sets manager  -->
+    <type name="Marsskom\ReservationAdmin\Controller\Adminhtml\Product\Delete">
+        <arguments>
+            <argument name="eventManager" xsi:type="object">DeleteControllerManager</argument>
+        </arguments>
+    </type>
+
+    <!--  Mass Delete Action: Sets payload to the event that it is related to  -->
+    <virtualType name="MassDeleteControllerManager"
+                 type="Marsskom\ReservationAdmin\Model\EventManager">
+        <arguments>
+            <argument name="events" xsi:type="array">
+                <item name="adminhtml_reservation_product_before_mass_delete"
+                      xsi:type="object">Marsskom\ReservationAdmin\Model\Payload\DummyPayloadFactory</item>
+                <item name="adminhtml_reservation_product_after_mass_delete"
+                      xsi:type="object">Marsskom\ReservationAdmin\Api\Data\Product\MassAction\MassResultInterfaceFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--  Mass Delete Action: Sets manager  -->
+    <type name="Marsskom\ReservationAdmin\Controller\Adminhtml\Product\MassDelete">
+        <arguments>
+            <argument name="eventManager" xsi:type="object">MassDeleteControllerManager</argument>
+        </arguments>
+    </type>
 </config>

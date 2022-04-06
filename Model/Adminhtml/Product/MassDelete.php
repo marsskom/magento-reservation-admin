@@ -38,7 +38,7 @@ class MassDelete implements MassActionInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function process(AbstractDb $abstractDb): MassResultInterface
     {

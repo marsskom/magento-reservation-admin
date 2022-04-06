@@ -10,11 +10,16 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Ui\Component\MassAction\Filter;
+use Marsskom\ReservationAdmin\Api\Data\EventManagerInterface;
+use Marsskom\ReservationAdmin\Api\Data\Product\MassAction\MassResultInterface;
+use Marsskom\ReservationAdmin\Exception\Event\EventNotFoundException;
 use Marsskom\ReservationAdmin\Model\Adminhtml\Product\Events;
-use Marsskom\ReservationAdmin\Model\Adminhtml\Product\EventsFactory;
 use Marsskom\ReservationAdmin\Model\Adminhtml\Product\MassDeleteFactory;
 use Marsskom\ReservationAdmin\Model\ResourceModel\Product\CollectionFactory;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class MassDelete extends Action implements HttpPostActionInterface
 {
     /**
@@ -32,53 +37,68 @@ class MassDelete extends Action implements HttpPostActionInterface
 
     protected EventsFactory $eventsFactory;
 
+    protected EventManagerInterface $eventManager;
+
     /**
      * Mass delete constructor.
      *
-     * @param Context           $context
-     * @param Filter            $filter
-     * @param CollectionFactory $collectionFactory
-     * @param MassDeleteFactory $actionFactory
-     * @param EventsFactory     $eventsFactory
+     * @param Context               $context
+     * @param Filter                $filter
+     * @param CollectionFactory     $collectionFactory
+     * @param MassDeleteFactory     $actionFactory
+     * @param EventManagerInterface $eventManager
      */
     public function __construct(
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory,
         MassDeleteFactory $actionFactory,
-        EventsFactory $eventsFactory
+        EventManagerInterface $eventManager
     ) {
         parent::__construct($context);
 
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
         $this->actionFactory = $actionFactory;
-        $this->eventsFactory = $eventsFactory;
+        $this->eventManager = $eventManager;
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      *
      * @throws LocalizedException
      */
     public function execute()
     {
-        $action = $this->actionFactory->create();
+        $this->eventManager->dispatch(Events::BEFORE_MASS_DELETE);
 
-        $event = $this->eventsFactory->create(Events::BEFORE_MASS_DELETE, 0, true);
-        $this->_eventManager->dispatch($event->getName(), $event->toArray());
+        $result = $this->actionFactory
+            ->create()
+            ->process(
+                $this->filter->getCollection($this->collectionFactory->create())
+            );
 
-        $result = $action->process(
-            $this->filter->getCollection($this->collectionFactory->create())
-        );
+        $this->addMessages($result);
+        $this->dispatchResultEvents($result);
 
+        return $this->resultFactory
+            ->create(ResultFactory::TYPE_REDIRECT)
+            ->setPath('reservation/product/index');
+    }
+
+    /**
+     * Adds messages.
+     *
+     * @param MassResultInterface $result
+     *
+     * @return void
+     */
+    protected function addMessages(MassResultInterface $result): void
+    {
         if ($result->getAffectedCount() > 0) {
             $this->messageManager->addSuccessMessage(
                 __('A total of %1 record(s) have been deleted.', $result->getAffectedCount())
             );
-
-            $event = $this->eventsFactory->create(Events::AFTER_MASS_DELETE, 0, true);
-            $this->_eventManager->dispatch($event->getName(), $event->toArray());
         }
 
         if ($result->getErroredCount()) {
@@ -88,13 +108,37 @@ class MassDelete extends Action implements HttpPostActionInterface
                     $result->getErroredCount()
                 )
             );
+        }
+    }
 
-            $event = $this->eventsFactory->create(Events::AFTER_MASS_DELETE, 0, false);
-            $this->_eventManager->dispatch($event->getName(), $event->toArray());
+    /**
+     * Dispatches events.
+     *
+     * @param MassResultInterface $result
+     *
+     * @return void
+     *
+     * @throws EventNotFoundException
+     */
+    protected function dispatchResultEvents(MassResultInterface $result): void
+    {
+        $payloadData = [
+            'affectedCount' => $result->getAffectedCount(),
+            'erroredCount'  => $result->getErroredCount(),
+        ];
+
+        if ($result->getAffectedCount() > 0) {
+            $this->eventManager->dispatch(
+                Events::AFTER_MASS_DELETE,
+                $payloadData
+            );
         }
 
-        return $this->resultFactory
-            ->create(ResultFactory::TYPE_REDIRECT)
-            ->setPath('reservation/product/index');
+        if ($result->getErroredCount()) {
+            $this->eventManager->dispatch(
+                Events::AFTER_MASS_DELETE,
+                $payloadData
+            );
+        }
     }
 }
