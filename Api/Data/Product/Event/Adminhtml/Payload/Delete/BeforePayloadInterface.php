@@ -8,7 +8,7 @@ interface BeforePayloadInterface
 {
     /**
      * Returns reservation id.
-     * 
+     *
      * @return int
      */
     public function getReservationId(): int;
