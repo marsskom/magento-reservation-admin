@@ -2,20 +2,20 @@
 
 declare(strict_types = 1);
 
-namespace Marsskom\ReservationAdmin\Model\Adminhtml\Product;
+namespace Marsskom\ReservationAdmin\Model;
 
-use Marsskom\ReservationAdmin\Api\Data\Product\EventInterface;
+use Marsskom\ReservationAdmin\Api\Data\EventInterface;
 
-abstract class Event implements EventInterface
+class Event implements EventInterface
 {
-    protected string $name;
+    private string $name;
 
     /**
      * Payload interface.
      *
      * @var mixed
      */
-    protected $payload;
+    private $payload;
 
     /**
      * Event constructor.
@@ -32,7 +32,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -40,7 +40,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getPayload()
     {
@@ -48,7 +48,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function toArray(): array
     {

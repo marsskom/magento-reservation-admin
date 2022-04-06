@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Payload\Delete;
 
-use Marsskom\ReservationAdmin\Api\Data\Product\Event\Payload\Delete\AfterPayloadInterface;
+use Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\AfterPayloadInterface;
 
 class After implements AfterPayloadInterface
 {
@@ -27,7 +27,7 @@ class After implements AfterPayloadInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getReservationId(): int
     {
@@ -35,7 +35,7 @@ class After implements AfterPayloadInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getStatus(): bool
     {

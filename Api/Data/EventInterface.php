@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Marsskom\ReservationAdmin\Api\Data\Product;
+namespace Marsskom\ReservationAdmin\Api\Data;
 
 interface EventInterface
 {

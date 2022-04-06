@@ -40,7 +40,7 @@ class ProductActions extends Column
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function prepareDataSource(array $dataSource): array
     {

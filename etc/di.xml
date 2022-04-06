@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Marsskom\ReservationAdmin\Api\Data\EventManagerInterface"
+                type="Marsskom\ReservationAdmin\Model\EventManager"/>
+    <preference for="Marsskom\ReservationAdmin\Api\Data\EventDispatcherInterface"
+                type="Marsskom\ReservationAdmin\Model\EventDispatcher"/>
+    <preference for="Marsskom\ReservationAdmin\Api\Data\EventInterface"
+                type="Marsskom\ReservationAdmin\Model\Event"/>
+
     <preference for="Marsskom\ReservationAdmin\Api\Product\ReservationRepositoryInterface"
                 type="Marsskom\ReservationAdmin\Model\Product\ReservationRepository"/>
     <preference for="Marsskom\ReservationAdmin\Api\Data\Product\ReservationSearchResultInterface"

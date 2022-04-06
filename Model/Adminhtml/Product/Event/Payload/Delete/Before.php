@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Marsskom\ReservationAdmin\Model\Adminhtml\Product\Event\Payload\Delete;
 
-use Marsskom\ReservationAdmin\Api\Data\Product\Event\Payload\Delete\BeforePayloadInterface;
+use Marsskom\ReservationAdmin\Api\Data\Product\Event\Adminhtml\Payload\Delete\BeforePayloadInterface;
 
 class Before implements BeforePayloadInterface
 {
@@ -22,7 +22,7 @@ class Before implements BeforePayloadInterface
     }
 
     /**
-     * @inheridoc
+     * @inheritdoc
      */
     public function getReservationId(): int
     {
