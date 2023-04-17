@@ -20,7 +20,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": "~7.4.0"
+        "php": "~7.4.0|~8.1.0"
     },
     "autoload": {
         "files": [
